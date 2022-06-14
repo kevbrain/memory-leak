@@ -51,7 +51,7 @@ public class AllocMemoryBean {
 		this.data = new ChartData();
 		this.dataSet = new LineChartDataSet();
 		this.dataSet.setData(this.values);
-		this.dataSet.setFill(false);
+		this.dataSet.setFill(true);
 		this.dataSet.setLabel("Memory consumption");
 		this.data.addChartDataSet(dataSet);
 		this.data.setLabels(this.labels);
@@ -80,7 +80,7 @@ public class AllocMemoryBean {
 	         + " is " + getFreeMemory() + "MB");       
 	        sleep(5);
 	      }     
-	      if (counter % 10000 == 0) {
+	      if (counter % 100 == 0) {
 	    	  this.values.add(getTotalMemory());
 	    	  this.labels.add(String.valueOf(counter));
 	    	  //createLineModel();
