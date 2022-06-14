@@ -19,6 +19,8 @@ spec:
       labels:
         app: memory-leak
     spec:
+      nodeSelector:
+        voxxed: 'true'
       volumes:
         - name: emptydirlogs
           emptyDir: {}
