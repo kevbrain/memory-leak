@@ -31,6 +31,11 @@
 				</h:panelGrid>			
 			</f:facet>
    		<h:form id="form" prependId="false">
+   		
+   			<center>
+   				<p:outputLabel value="!!! DANGER !!!"   style="width:100%;text-align: center;font-size: 20px;color:red"></p:outputLabel>
+   				<p:outputLabel value="Are you sure it's a good idea to do this ?"   style="width:100%;text-align: center;font-size: 20px;color:red"></p:outputLabel>
+   			</center>
    			
    			<div style="position:relative;margin:auto;text-align:center;">	
    				<p:commandButton value="Start Memory Allocation"  actionListener="#{allocMemoryBean.startAllocMemory}" update="@form" style="margin:10px;background:#003b50;color:white" />   				
