@@ -55,7 +55,11 @@
    					<h:outputText value="#{allocMemoryBean.counterFreeSize}"/>
    				</p:panelGrid>
    				
-   				 <p:poll interval="1" listener="#{allocMemoryBean.check}" update="grid_result"/>
+   				
+   				<p:lineChart model="#{allocMemoryBean.lineModel}" style="width: 100%; height: 500px;"/>
+				
+   				
+   				 <p:poll interval="1" listener="#{allocMemoryBean.check}" update="@form"/>
    			</center>
    			
     	</h:form>

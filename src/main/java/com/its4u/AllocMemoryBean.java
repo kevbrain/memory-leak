@@ -1,11 +1,18 @@
 package com.its4u;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.line.LineChartDataSet;
+import org.primefaces.model.charts.line.LineChartModel;
 
 
 @ManagedBean(name = "allocMemoryBean")
@@ -20,6 +27,14 @@ public class AllocMemoryBean {
 	
 	private long totalmemory;
 	
+	private LineChartModel lineModel;
+	
+	private ChartData data ;
+	
+	private LineChartDataSet dataSet ; 
+	
+	private List<Object> values ;
+	
 	@PostConstruct
     public void init() {
 		
@@ -28,6 +43,15 @@ public class AllocMemoryBean {
 		this.counterFreeSize=getFreeMemory();
 		this.maxmemory=getMaxMemory();
 		this.totalmemory=getTotalMemory();
+		this.lineModel = new LineChartModel();
+		this.data = new ChartData();
+		this.dataSet = new LineChartDataSet();
+		this.values = new ArrayList<>();
+		this.dataSet.setData(values);
+		this.dataSet.setFill(false);
+		this.dataSet.setLabel("Memory consumption");
+		this.data.addChartDataSet(dataSet);
+		this.lineModel.setData(data);
 	}
 
 	public void startAllocMemory() {
@@ -48,6 +72,9 @@ public class AllocMemoryBean {
 	         + " is " + getFreeMemory() + "MB");       
 	        sleep(5);
 	      }     
+	      if (counter % 10000 == 0) {
+	    	  this.values.add(getTotalMemory());
+	      }
 	    }
 	}
 	
@@ -113,6 +140,15 @@ public class AllocMemoryBean {
 	public void setTotalmemory(long totalmemory) {
 		this.totalmemory = totalmemory;
 	}
+
+	public LineChartModel getLineModel() {
+		return lineModel;
+	}
+
+	public void setLineModel(LineChartModel lineModel) {
+		this.lineModel = lineModel;
+	}
+	
 	
 	
 
