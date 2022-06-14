@@ -1,0 +1,11 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: memory-leak-dev-trigger
+  namespace: memory-leak-dev
+spec:
+  serviceAccountName: pipeline
+  bindings:
+    - ref: memory-leak-dev-triggerbinding
+  template:
+    ref: memory-leak-dev-triggertemplate

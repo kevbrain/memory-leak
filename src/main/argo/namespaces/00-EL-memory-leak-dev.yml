@@ -1,0 +1,9 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: memory-leak-dev-eventlistener
+  namespace: memory-leak-dev
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - triggerRef: memory-leak-dev-trigger

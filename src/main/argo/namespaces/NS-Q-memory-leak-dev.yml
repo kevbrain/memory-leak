@@ -1,0 +1,12 @@
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: quotas-project
+  namespace: memory-leak-dev
+spec:
+  hard:
+    limits.cpu: '4'
+    limits.memory: 4Gi
+    requests.cpu: '1'
+    requests.memory: 1Gi
+status:

@@ -1,0 +1,115 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: {{ocp-namespace}}
+  annotations:
+    its4u.placeholders/auto: "true"
+    reloader.stakater.com/auto: "true"
+  name: memory-leak
+  labels:
+    app: memory-leak
+spec:
+  replicas: {{ocp.replicas}}
+  selector:
+    matchLabels:
+      app: memory-leak
+  template:
+    metadata:
+      name: memory-leak
+      labels:
+        app: memory-leak
+    spec:
+      volumes:
+        - name: emptydirlogs
+          emptyDir: {}
+      containers:
+        - name: microservice-pod 
+          resources:
+            requests:
+              memory: {{app-request.memory}}
+              cpu : {{app-request.cpu}}
+            limits:
+              memory: {{app-limit.memory}}
+              cpu : {{app-limit.cpu}}
+          readinessProbe:
+            httpGet:
+              path: actuator/health
+              port: {{app-actuator.port}}
+              scheme: HTTP
+          env:
+            - name: app-limit.memory
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-limit.memory
+            - name: ocp-cluster.registry
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: ocp-cluster.registry
+            - name: app-limit.cpu
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-limit.cpu
+            - name: ocp.environment
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: ocp.environment
+            - name: ocp-namespace
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: ocp-namespace
+            - name: cluster-suffix
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: cluster-suffix
+            - name: app-actuator.port
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-actuator.port
+            - name: app-request.memory
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-request.memory
+            - name: app-container.port
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-container.port
+            - name: app-request.cpu
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-request.cpu
+            - name: ocp.replicas
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: ocp.replicas
+            - name: app-version
+              valueFrom:
+                configMapKeyRef:
+                  name: memory-leak-cm-0
+                  key: app-version
+            - name: actuator.password
+              valueFrom:
+                secretKeyRef:
+                  name: memory-leak-secret-0
+                  key: actuator.password
+          ports:
+            - containerPort: {{app-container.port}}
+              protocol: TCP
+              name: http
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: emptydirlogs
+              mountPath: /Logs
+          image: >-
+            {{ocp-cluster.registry}}/{{ocp-namespace}}/memory-leak:{{app-version}}
+      restartPolicy: Always

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: memory-leak-dev
+  labels:
+    its4u.com/env: dev
+    its4u.com/team: devops
+    its4u.com/value-chain: it
+  annotations:
+      openshift.io/requester: OCP BootStrapper
+spec:
+  finalizers:
+  - kubernetes
