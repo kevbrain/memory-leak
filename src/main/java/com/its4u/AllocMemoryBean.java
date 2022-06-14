@@ -34,11 +34,17 @@ public class AllocMemoryBean {
 	      counter++;
 	      if (counter % 1000 == 0) {
 	        System.out.println("Map size: " + map.size());
+	        this.mapSize=map.size();
+	        this.counterFreeSize=getFreeMemory();
 	        System.out.println("Free memory after count " + counter
 	         + " is " + getFreeMemory() + "MB");       
 	        sleep(1000);
 	      }     
 	    }
+	}
+	
+	public void check() {
+		this.counterFreeSize=getFreeMemory();
 	}
 	
 	static class Key {

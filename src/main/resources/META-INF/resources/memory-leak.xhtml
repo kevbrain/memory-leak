@@ -37,13 +37,15 @@
    			</div>
    			
    			<center>
-   				<p:panelGrid columns="2">
+   				<p:panelGrid columns="2" id="grid_result">
    					<h:outputText value="Map Size"/>
    					<h:outputText value="Free Memory Size"/>
    					
    					<h:outputText value="#{allocMemoryBean.mapSize}"/>
    					<h:outputText value="#{allocMemoryBean.counterFreeSize}"/>
    				</p:panelGrid>
+   				
+   				 <p:poll interval="2" listener="#{allocMemoryBean.check}" update="txt_count"/>
    			</center>
    			
     	</h:form>
