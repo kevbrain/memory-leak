@@ -35,6 +35,8 @@ public class AllocMemoryBean {
 	
 	private List<Object> values ;
 	
+	private List<String> labels ;
+	
 	@PostConstruct
     public void init() {
 		
@@ -42,15 +44,21 @@ public class AllocMemoryBean {
 		this.mapSize=0;
 		this.counterFreeSize=getFreeMemory();
 		this.maxmemory=getMaxMemory();
-		this.totalmemory=getTotalMemory();
+		this.totalmemory=getTotalMemory();		
+		this.values = new ArrayList<>();
+		this.labels = new ArrayList<>();
+		
+	}
+	
+	public void createLineModel() {
 		this.lineModel = new LineChartModel();
 		this.data = new ChartData();
 		this.dataSet = new LineChartDataSet();
-		this.values = new ArrayList<>();
-		this.dataSet.setData(values);
+		this.dataSet.setData(this.values);
 		this.dataSet.setFill(false);
 		this.dataSet.setLabel("Memory consumption");
 		this.data.addChartDataSet(dataSet);
+		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
 	}
 
@@ -74,6 +82,8 @@ public class AllocMemoryBean {
 	      }     
 	      if (counter % 10000 == 0) {
 	    	  this.values.add(getTotalMemory());
+	    	  this.labels.add(String.valueOf(counter));
+	    	  createLineModel();
 	      }
 	    }
 	}
