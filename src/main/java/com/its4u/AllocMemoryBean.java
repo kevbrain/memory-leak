@@ -19,6 +19,8 @@ import org.primefaces.model.charts.line.LineChartModel;
 @SessionScoped
 public class AllocMemoryBean {
 	
+	private int counter;
+	
 	private int mapSize;
 	
 	private long counterFreeSize;
@@ -52,15 +54,12 @@ public class AllocMemoryBean {
 		this.dataSet = new LineChartDataSet();
 		this.dataSet.setData(this.values);
 		this.dataSet.setFill(true);
-		this.dataSet.setLabel("Memory consumption");
+		this.dataSet.setLabel("Memory Total consumption");
 		this.data.addChartDataSet(dataSet);
 		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
 	}
 	
-	public void createLineModel() {
-		
-	}
 
 	public void startAllocMemory() {
 		System.out.println("Start Alloc Memory");
@@ -71,20 +70,15 @@ public class AllocMemoryBean {
 	      map.put(new Key("dummyKey"), "value");
 	      counter++;
 	      if (counter % 1000 == 0) {
-	        System.out.println("Map size: " + map.size());
 	        this.mapSize=map.size();
 	        this.counterFreeSize=getFreeMemory();
 			this.maxmemory=getMaxMemory();
-			this.totalmemory=getTotalMemory();
-	        System.out.println("Free memory after count " + counter
-	         + " is " + getFreeMemory() + "MB");       
+			this.totalmemory=getTotalMemory();	     
+	    	this.values.add(getTotalMemory());
+	    	this.labels.add(String.valueOf(counter/1000));
 	        sleep(5);
 	      }     
-	      if (counter % 100 == 0) {
-	    	  this.values.add(getTotalMemory());
-	    	  this.labels.add(String.valueOf(counter/100));
-	    	  //createLineModel();
-	      }
+
 	    }
 	}
 	
