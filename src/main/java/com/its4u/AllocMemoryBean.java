@@ -38,7 +38,7 @@ public class AllocMemoryBean {
 	        this.counterFreeSize=getFreeMemory();
 	        System.out.println("Free memory after count " + counter
 	         + " is " + getFreeMemory() + "MB");       
-	        sleep(1000);
+	        sleep(10);
 	      }     
 	    }
 	}
