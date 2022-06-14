@@ -16,12 +16,18 @@ public class AllocMemoryBean {
 	
 	private long counterFreeSize;
 	
+	private long maxmemory;
+	
+	private long totalmemory;
+	
 	@PostConstruct
     public void init() {
 		
 		System.out.println("Init Alloc Memory bean");
 		this.mapSize=0;
 		this.counterFreeSize=getFreeMemory();
+		this.maxmemory=getMaxMemory();
+		this.totalmemory=getTotalMemory();
 	}
 
 	public void startAllocMemory() {
@@ -36,9 +42,11 @@ public class AllocMemoryBean {
 	        System.out.println("Map size: " + map.size());
 	        this.mapSize=map.size();
 	        this.counterFreeSize=getFreeMemory();
+			this.maxmemory=getMaxMemory();
+			this.totalmemory=getTotalMemory();
 	        System.out.println("Free memory after count " + counter
 	         + " is " + getFreeMemory() + "MB");       
-	        sleep(10);
+	        sleep(5);
 	      }     
 	    }
 	}
@@ -65,6 +73,14 @@ public class AllocMemoryBean {
 	  public static long getFreeMemory() {
 	    return Runtime.getRuntime().freeMemory() / (1024 * 1024);
 	  }
+	  
+	  public static long getTotalMemory() {
+		 return Runtime.getRuntime().totalMemory() / (1024 * 1024);
+	  }
+	  
+	  public static long getMaxMemory() {
+		  return Runtime.getRuntime().maxMemory() /  (1024 * 1024);
+	  }
 
 	public int getMapSize() {
 		return mapSize;
@@ -81,6 +97,23 @@ public class AllocMemoryBean {
 	public void setCounterFreeSize(long counterFreeSize) {
 		this.counterFreeSize = counterFreeSize;
 	}
+
+	public long getMaxmemory() {
+		return maxmemory;
+	}
+
+	public void setMaxmemory(long maxmemory) {
+		this.maxmemory = maxmemory;
+	}
+
+	public long getTotalmemory() {
+		return totalmemory;
+	}
+
+	public void setTotalmemory(long totalmemory) {
+		this.totalmemory = totalmemory;
+	}
+	
 	
 
 	  

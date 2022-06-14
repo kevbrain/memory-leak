@@ -39,9 +39,13 @@
    			<center>
    				<p:panelGrid columns="2" id="grid_result">
    					<h:outputText value="Map Size"/>
+   					<h:outputText value="Memory Max"/>
+   					<h:outputText value="Memory Total"/>
    					<h:outputText value="Free Memory Size"/>
    					
    					<h:outputText value="#{allocMemoryBean.mapSize}"/>
+   					<h:outputText value="#{allocMemoryBean.maxmemory}"/>
+   					<h:outputText value="#{allocMemoryBean.totalmemory}"/>
    					<h:outputText value="#{allocMemoryBean.counterFreeSize}"/>
    				</p:panelGrid>
    				
