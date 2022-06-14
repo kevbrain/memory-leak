@@ -33,9 +33,18 @@
    		<h:form id="form" prependId="false">
    			
    			<div style="position:relative;margin:auto;text-align:center;">	
-   				<p:commandButton value="Start Memory Allocation"  actionListener="#{allocMemoryBean.startAllocMemory}" update="@form" style="margin:10px;background:#003b50;color:white" />
-   				<p:commandButton value="Stop Memory Allocation"  actionListener="#{allocMemoryBean.stopAllocMemory}" update="@form" style="margin:10px;background:#003b50;color:white" />
+   				<p:commandButton value="Start Memory Allocation"  actionListener="#{allocMemoryBean.startAllocMemory}" update="@form" style="margin:10px;background:#003b50;color:white" />   				
    			</div>
+   			
+   			<center>
+   				<p:panelGrid columns="2">
+   					<h:outputText value="Map Size"/>
+   					<h:outputText value="Free Memory Size"/>
+   					
+   					<h:outputText value="#{allocMemoryBean.mapSize}"/>
+   					<h:outputText value="#{allocMemoryBean.counterFreeSize}"/>
+   				</p:panelGrid>
+   			</center>
    			
     	</h:form>
 	</p:panel>
