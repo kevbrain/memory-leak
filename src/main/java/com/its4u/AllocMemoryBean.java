@@ -82,7 +82,7 @@ public class AllocMemoryBean {
 	      }     
 	      if (counter % 100 == 0) {
 	    	  this.values.add(getTotalMemory());
-	    	  this.labels.add(String.valueOf(counter));
+	    	  this.labels.add(String.valueOf(counter/100));
 	    	  //createLineModel();
 	      }
 	    }
