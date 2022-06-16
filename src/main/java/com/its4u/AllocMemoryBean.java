@@ -39,6 +39,9 @@ public class AllocMemoryBean {
 	
 	private List<String> labels ;
 	
+	private boolean allocmemory ;
+	
+	
 	@PostConstruct
     public void init() {
 		
@@ -58,14 +61,16 @@ public class AllocMemoryBean {
 		this.data.addChartDataSet(dataSet);
 		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
+		this.allocmemory=false;
 	}
 	
 
 	public void startAllocMemory() {
 		System.out.println("Start Alloc Memory");
+		this.allocmemory=true;
 		Map<Key, String> map = new HashMap<Key, String>(1000);   
 	    int counter = 0;
-	    while (true) {
+	    while (isAllocmemory()) {
 	       // creates duplicate objects due to bad Key class
 	      map.put(new Key("dummyKey"), "value");
 	      counter++;
@@ -76,10 +81,16 @@ public class AllocMemoryBean {
 			this.totalmemory=getTotalMemory();	     
 	    	this.values.add(getTotalMemory());
 	    	this.labels.add(String.valueOf(counter/1000));
-	        sleep(5);
+	        sleep(2);
 	      }     
 
 	    }
+	}
+	
+	public void stopAllocMemory() {
+		System.out.println("STOP Alloc Memory");
+		this.allocmemory=false;
+		
 	}
 	
 	public void check() {
@@ -151,6 +162,16 @@ public class AllocMemoryBean {
 
 	public void setLineModel(LineChartModel lineModel) {
 		this.lineModel = lineModel;
+	}
+
+
+	public boolean isAllocmemory() {
+		return allocmemory;
+	}
+
+
+	public void setAllocmemory(boolean allocmemory) {
+		this.allocmemory = allocmemory;
 	}
 	
 	
