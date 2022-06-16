@@ -41,6 +41,8 @@ public class AllocMemoryBean {
 	
 	private boolean allocmemory ;
 	
+	private Map<Key, String> map = new HashMap<Key, String>(1000); 
+	
 	
 	@PostConstruct
     public void init() {
@@ -62,29 +64,13 @@ public class AllocMemoryBean {
 		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
 		this.allocmemory=false;
+		
 	}
 	
 
 	public void startAllocMemory() {
 		System.out.println("Start Alloc Memory");
-		this.allocmemory=true;
-		Map<Key, String> map = new HashMap<Key, String>(1000);   
-	    int counter = 0;
-	    while (isAllocmemory()) {
-	       // creates duplicate objects due to bad Key class
-	      map.put(new Key("dummyKey"), "value");
-	      counter++;
-	      if (counter % 1000 == 0) {
-	        this.mapSize=map.size();
-	        this.counterFreeSize=getFreeMemory();
-			this.maxmemory=getMaxMemory();
-			this.totalmemory=getTotalMemory();	     
-	    	this.values.add(getTotalMemory());
-	    	this.labels.add(String.valueOf(counter/1000));
-	        sleep(2);
-	      }     
-
-	    }
+		this.allocmemory=true;		  	
 	}
 	
 	public void stopAllocMemory() {
@@ -94,6 +80,24 @@ public class AllocMemoryBean {
 	}
 	
 	public void check() {
+		
+	    if (isAllocmemory()) {
+		    
+	    	System.out.println("Allocate 1000 item on map");
+		    for (int i=0;i<1000;i++) {
+			      this.map.put(new Key("dummyKey"), "value");
+			      counter++;		       
+			    }
+		} else {
+			System.out.println("Allocation paused");
+		}
+	     
+        this.mapSize=map.size();
+        this.counterFreeSize=getFreeMemory();
+		this.maxmemory=getMaxMemory();
+		this.totalmemory=getTotalMemory();	     
+    	this.values.add(getTotalMemory());
+    	this.labels.add(String.valueOf(counter/1000));
 		this.counterFreeSize=getFreeMemory();
 	}
 	
