@@ -79,12 +79,19 @@ public class AllocMemoryBean {
 		
 	}
 	
+	public void cleanAllocMemory() {
+		System.out.println("Clean Alloc Memory");
+		this.allocmemory=false;
+		this.map = new HashMap<Key, String>(1000);
+		
+	}
+	
 	public void check() {
 		
 	    if (isAllocmemory()) {
 		    
-	    	System.out.println("Allocate 1000 item on map");
-		    for (int i=0;i<100000;i++) {
+	    	System.out.println("Allocate 1000000 item on map");
+		    for (int i=0;i<1000000;i++) {
 			      this.map.put(new Key("dummyKey"), "value");
 			      counter++;		       
 			    }
