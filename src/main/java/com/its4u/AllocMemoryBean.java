@@ -84,7 +84,7 @@ public class AllocMemoryBean {
 	    if (isAllocmemory()) {
 		    
 	    	System.out.println("Allocate 1000 item on map");
-		    for (int i=0;i<1000;i++) {
+		    for (int i=0;i<100000;i++) {
 			      this.map.put(new Key("dummyKey"), "value");
 			      counter++;		       
 			    }
