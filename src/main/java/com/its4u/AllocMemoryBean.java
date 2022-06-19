@@ -64,12 +64,14 @@ public class AllocMemoryBean {
 		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
 		this.allocmemory=false;
+		initOneGb();
 		
 	}
 	
 
 	public void startAllocMemory() {
 		System.out.println("Start Alloc Memory");
+		
 		this.allocmemory=true;		  	
 	}
 	
@@ -82,8 +84,17 @@ public class AllocMemoryBean {
 	public void cleanAllocMemory() {
 		System.out.println("Clean Alloc Memory");
 		this.allocmemory=false;
+		this.map=null;
 		this.map = new HashMap<Key, String>(1000);
 		
+	}
+	
+	public void initOneGb() {
+		
+		 for (int i=0;i<10000000;i++) {
+		      this.map.put(new Key("dummyKey"), "value");
+		      counter++;		       
+		 }
 	}
 	
 	public void check() {
