@@ -91,10 +91,11 @@ public class AllocMemoryBean {
 	
 	public void initOneGb() {
 		
-		 for (int i=0;i<10000000;i++) {
+		 for (int i=0;i<40000000;i++) {
 		      this.map.put(new Key("dummyKey"), "value");
 		      counter++;		       
 		 }
+		 System.out.println("1GB Allocated Memory");
 	}
 	
 	public void check() {
