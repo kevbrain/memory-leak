@@ -64,7 +64,6 @@ public class AllocMemoryBean {
 		this.data.setLabels(this.labels);
 		this.lineModel.setData(data);
 		this.allocmemory=false;
-		initOneGb();
 		
 	}
 	
